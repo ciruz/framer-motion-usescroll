@@ -1,8 +1,9 @@
 'use client'
 
-import clsx from 'clsx'
+import React, { useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import React, { useRef } from 'react'
+
+import clsx from 'clsx'
 
 export default function Item({ data }: { data: { id: number; name: string } }) {
   const ref = useRef<HTMLElement>(null)
@@ -14,6 +15,13 @@ export default function Item({ data }: { data: { id: number; name: string } }) {
 
   const scaleProgress = useTransform(scrollYProgress, [0, 1], [0.5, 1])
   const opacityProgress = useTransform(scrollYProgress, [0, 1], [0.1, 1])
+
+  // trying to trigger a recalculation for useScroll
+  useEffect(() => {
+    // window.scrollBy({ top: 100 })
+    window.scrollBy({ top: 1 })
+    window.scrollBy({ top: -1 })
+  })
 
   return (
     <motion.article
